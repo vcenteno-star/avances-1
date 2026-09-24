@@ -12,6 +12,19 @@ class Decano:
         print("Facultad:", self.informacion["facultad"])
         print("Correo:", self.informacion["correo"])
 
+    def evaluar_beca(self, estudiante):
+        if estudiante.nota >= 85:
+            resultado = "Beca aprobada"
+        else:
+            resultado = "Beca rechazada"
+
+        print("\n--- EVALUACIÓN DE BECA ---")
+        print("Estudiante:", estudiante.obtener_nombre_completo())
+        print("Nota:", estudiante.nota)
+        print("Resultado:", resultado)
+
+        return resultado
+
 
 class Secretaria:
     def __init__(self, nombre, facultad, correo):
@@ -26,6 +39,29 @@ class Secretaria:
         print("Nombre:", self.informacion["nombre"])
         print("Facultad:", self.informacion["facultad"])
         print("Correo:", self.informacion["correo"])
+
+    def evaluar_datos_estudiante(self, estudiante):
+        datos = {
+            "id": estudiante.id,
+            "nombre": estudiante.nombre,
+            "apellido": estudiante.apellido,
+            "nota": estudiante.nota
+        }
+
+        completos = all(
+            valor is not None and valor != ""
+            for valor in datos.values()
+        )
+
+        print("\n--- EVALUACIÓN DE DATOS ---")
+        print("Estudiante:", estudiante.obtener_nombre_completo())
+
+        if completos:
+            print("Los datos del estudiante están completos.")
+        else:
+            print("Los datos del estudiante están incompletos.")
+
+        return completos
 
 
 class Profesor:
@@ -43,3 +79,17 @@ class Profesor:
         print("Curso:", self.informacion["curso"])
         print("Horario:", self.informacion["horario"])
         print("Correo:", self.informacion["correo"])
+
+    def registrar_nota(self, estudiante, nota):
+        if 0 <= nota <= 100:
+            estudiante.nota = nota
+            print(
+                "\nEl profesor",
+                self.informacion["nombre"],
+                "registró la nota",
+                nota,
+                "para",
+                estudiante.obtener_nombre_completo()
+            )
+        else:
+            print("\nLa nota debe estar entre 0 y 100.")
